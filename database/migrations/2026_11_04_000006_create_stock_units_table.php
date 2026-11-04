@@ -15,10 +15,12 @@ return new class extends Migration
             $table->foreignId('purchase_order_item_id')->constrained('purchase_order_items')->cascadeOnDelete();
             $table->foreignId('sales_order_item_id')->nullable()->constrained('sales_order_items')->nullOnDelete();
             $table->string('serial_number', 100)->unique();
-            $table->enum('status', ['in_stock', 'sold'])->default('in_stock');
+            $table->enum('status', ['in_stock', 'sold'])->default('in_stock')->index();
             $table->timestamps();
 
             $table->index(['product_id', 'status']);
+            $table->index('purchase_order_item_id');
+            $table->index('sales_order_item_id');
         });
     }
 

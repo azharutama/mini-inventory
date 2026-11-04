@@ -16,7 +16,9 @@ return new class extends Migration
             $table->enum('movement_type', ['in', 'out']);
             $table->timestamps();
 
+            $table->index('stock_unit_id');
             $table->index(['transaction_date', 'movement_type']);
+            $table->index(['stock_unit_id', 'movement_type', 'transaction_date'], 'idx_stock_movements_unit_type_date');
         });
     }
 

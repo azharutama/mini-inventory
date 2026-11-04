@@ -8,13 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // PRD 5.3: Tabel purchase_order_items
+        // PRD 5.3: Tabel purchase_order_items dengan index relasi
         Schema::create('purchase_order_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('purchase_order_id')->constrained('purchase_orders')->cascadeOnDelete();
             $table->foreignId('product_id')->constrained('products')->restrictOnDelete();
             $table->unsignedInteger('quantity');
             $table->timestamps();
+
+            $table->index(['purchase_order_id', 'product_id']);
         });
     }
 
